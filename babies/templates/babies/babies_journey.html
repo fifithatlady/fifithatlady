@@ -1,0 +1,20 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Welcome to your Babies Journey!</h2>
+  {% if babies %}
+    {% for baby in babies %}
+      <div>
+        {% if baby.picture %}
+          <img src="{{ baby.picture.url }}" alt="{{ baby.name }}'s picture" style="width: 100px; height: auto;">
+        {% else %}
+          <p>No picture available.</p>
+        {% endif %}
+        <h3><a href="{% url 'babies:baby_detail' baby.id %}">{{ baby.name }}</a></h3>
+        <p>Age: {{ baby.age_in_months }} months</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>You don't have any baby profiles. <a href="{% url 'babies:baby_create' %}">Create one now.</a></p>
+  {% endif %}
+{% endblock %}
